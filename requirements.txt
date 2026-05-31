@@ -1,0 +1,4 @@
+# Agent VM dependencies
+# Python 3.10+ required (uses asyncio natively)
+# No external packages needed — stdlib only
+asyncio
