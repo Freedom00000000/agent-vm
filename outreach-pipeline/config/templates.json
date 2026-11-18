@@ -1,0 +1,17 @@
+{
+  "prospecting_v1": {
+    "category": "prospecting",
+    "subject": "Optimering af {{company}}",
+    "body": "Hej {{name}},\n\njeg ser at {{company}} vokser, og vil gerne høre om I har overvejet at optimere jeres energiforbrug.\n\nHar du 15 minutter i næste uge?\n\nVenlig hilsen\n{{sender}}"
+  },
+  "followup_v1": {
+    "category": "followup",
+    "subject": "Opfølgning: {{company}}",
+    "body": "Hej {{name}},\n\njeg følger lige op på min mail fra sidste uge. Giver det mening at tage en kort snak?\n\nVenlig hilsen\n{{sender}}"
+  },
+  "haandvaerk_30min_v1": {
+    "category": "haandvaerk",
+    "subject": "30 minutter tilbage i hverdagen hos {{company}}",
+    "body": "Hej {{name}},\n\nmange håndværksvirksomheder bruger en halv time om dagen på tilbud, timesedler og papirarbejde efter fyraften. Den tid hjælper vi med at få tilbage.\n\nMå jeg ringe dig op i næste uge og vise, hvordan det kunne se ud hos {{company}}? Det tager 10 minutter.\n\nVenlig hilsen\n{{sender}}"
+  }
+}
