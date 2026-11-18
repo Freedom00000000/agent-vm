@@ -1,0 +1,54 @@
+name: outreach-pipeline CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['outreach-pipeline/**', '.github/workflows/outreach-pipeline.yml']
+  pull_request:
+    paths: ['outreach-pipeline/**', '.github/workflows/outreach-pipeline.yml']
+  workflow_dispatch:
+    inputs:
+      smoke_lead_id:
+        description: 'CRM-lead-id til read-only smoke-test mod test-CRM (tom = spring over)'
+        required: false
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: outreach-pipeline
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: outreach-pipeline/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npm run validate
+
+  smoke:
+    # Read-only kald mod test-CRM. Secrets ligger i GitHub-environment "crm-test" og injiceres kun her.
+    if: github.event_name == 'workflow_dispatch' && inputs.smoke_lead_id != ''
+    needs: check
+    runs-on: ubuntu-latest
+    environment: crm-test
+    env:
+      CRM_PROVIDER: ${{ vars.CRM_PROVIDER }}
+      CRM_URL: ${{ vars.CRM_URL }}
+      CRM_API_KEY: ${{ secrets.CRM_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: outreach-pipeline/package-lock.json
+      - run: npm ci
+      - run: npm run outreach -- smoke --lead "${{ inputs.smoke_lead_id }}"

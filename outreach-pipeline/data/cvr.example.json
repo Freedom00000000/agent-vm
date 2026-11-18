@@ -1,0 +1,5 @@
+[
+  { "crm_id": "lead-001", "vat": "31000548", "name": "Hansen Tømrer ApS", "city": "Odense", "industrycode": 433200, "industrydesc": "Tømrer- og bygningssnedkervirksomhed", "protected": false, "owners": [{ "name": "Mette Lund Hansen" }] },
+  { "crm_id": "lead-002", "vat": "31001781", "name": "Berg El A/S", "city": "Vejle", "industrycode": 432100, "industrydesc": "El-installation", "protected": false, "contact_name": "Jonas Berg", "email": "jonas@example.com" },
+  { "crm_id": "lead-003", "vat": "31002192", "name": "Skov VVS", "city": "Aarhus", "industrycode": 432200, "industrydesc": "VVS- og blikkenslagerforretninger", "protected": true, "owners": [{ "name": "Peter Skov" }] }
+]

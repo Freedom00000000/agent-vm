@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test)",
+      "Bash(npm run typecheck)",
+      "Bash(npm run check)",
+      "Bash(npm run validate)",
+      "Bash(npm run outreach -- list)",
+      "Bash(npm run outreach -- cvr:*)",
+      "Bash(npm run outreach -- generate:*)"
+    ],
+    "ask": [
+      "Bash(npm run outreach -- smoke:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": [
+      "Bash(npm run outreach -- apply:*)",
+      "Bash(npm run outreach -- rollback:*)",
+      "Bash(npm run outreach apply:*)",
+      "Bash(npm run outreach rollback:*)",
+      "Bash(tsx scripts/outreach_generator.ts apply:*)",
+      "Bash(tsx scripts/outreach_generator.ts rollback:*)",
+      "Edit(./out/**)",
+      "Write(./out/**)",
+      "Read(./.env)",
+      "Read(./.env.local)",
+      "Read(./.env.production)",
+      "Bash(cat .env*)",
+      "Bash(printenv:*)",
+      "Bash(env)"
+    ]
+  }
+}
