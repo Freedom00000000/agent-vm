@@ -43,6 +43,8 @@ jobs:
       CRM_PROVIDER: ${{ vars.CRM_PROVIDER }}
       CRM_URL: ${{ vars.CRM_URL }}
       CRM_API_KEY: ${{ secrets.CRM_API_KEY }}
+      # Input sendes via miljøvariabel – aldrig interpoleret direkte i shell (script injection).
+      SMOKE_LEAD_ID: ${{ inputs.smoke_lead_id }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,4 +53,4 @@ jobs:
           cache: npm
           cache-dependency-path: outreach-pipeline/package-lock.json
       - run: npm ci
-      - run: npm run outreach -- smoke --lead "${{ inputs.smoke_lead_id }}"
+      - run: npm run outreach -- smoke --lead "$SMOKE_LEAD_ID"

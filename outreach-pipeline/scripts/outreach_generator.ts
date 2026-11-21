@@ -115,6 +115,16 @@ async function crmFromEnv(): Promise<CrmConnector> {
   return createCrmConnector();
 }
 
+/**
+ * Et CRM-lead-id er et UUID (Pipedrive) eller et tal (HubSpot) – aldrig et firmanavn.
+ * Fanger fx `--lead inside ai`, som ellers sendes til CRM og giver en uforståelig 4xx/500.
+ */
+export function checkLeadId(id: string, extra: string[] = []): void {
+  const hint = 'Brug leadets CRM-id (UUID i Pipedrive, tal i HubSpot) – ikke firmanavnet. Id\'et står i URL\'en, når du åbner leadet i CRM.';
+  if (extra.length) throw new Error(`Uventede argumenter efter --lead ${id}: "${extra.join(' ')}". ${hint}`);
+  if (!/^[A-Za-z0-9-]+$/.test(id)) throw new Error(`Ugyldigt lead-id "${id}". ${hint}`);
+}
+
 const USAGE = `Brug: npm run outreach -- <kommando> [flag]
   validate | list
   cvr      -i <cvr.json> -o <leads.json>
@@ -175,6 +185,7 @@ export async function main(argv: string[]): Promise<number> {
     }
     case 'smoke': {
       need('lead');
+      checkLeadId(v.lead!, positionals.slice(1));
       const crm = await crmFromEnv();
       const lead = await crm.getLead(v.lead!);
       console.log(`✔ ${crm.provider} svarer. Lead ${lead.id}: "${lead.title}" (read-only, intet ændret)`);
